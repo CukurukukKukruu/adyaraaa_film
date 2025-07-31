@@ -9,20 +9,18 @@ import { getPosterImageURL } from '@/lib/utils'
 import { MoviesDetailsContent } from '@/components/media/details-content'
 import { MovieDetailsHero } from '@/components/media/details-hero'
 
-// ✅ Fix parameter typing sesuai Next.js 15
 export async function generateMetadata(
-  props: any, // Gunakan `any` untuk menghindari error typing Promise
+  { params }: any, // ✅ FIX INI!
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const id = props?.params?.id
-  const movieDetails = await getMovieDetailsById(id)
+  const movieDetails = await getMovieDetailsById(params.id)
 
   const previousImages = (await parent).openGraph?.images || []
 
   return {
     title: movieDetails.title,
     description: movieDetails.overview,
-    metadataBase: new URL(`/movies/${id}`, process.env.NEXT_PUBLIC_BASE_URL),
+    metadataBase: new URL(`/movies/${params.id}`, process.env.NEXT_PUBLIC_BASE_URL),
     openGraph: {
       images: [
         ...previousImages,
@@ -33,7 +31,6 @@ export async function generateMetadata(
   }
 }
 
-// ✅ Sama di komponen page utamanya
 const MoviePage = async ({
   params,
 }: {
