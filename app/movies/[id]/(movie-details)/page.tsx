@@ -11,19 +11,17 @@ import { MoviesDetailsContent } from '@/components/media/details-content'
 import { MovieDetailsHero } from '@/components/media/details-hero'
 
 export async function generateMetadata(
-  props: PageDetailsProps,
+  { params }: { params: { id: string } },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const { id } = props.params
-
-  const movieDetails = await getMovieDetailsById(id)
+  const movieDetails = await getMovieDetailsById(params.id)
 
   const previousImages = (await parent).openGraph?.images || []
 
   return {
     title: movieDetails.title,
     description: movieDetails.overview,
-    metadataBase: new URL(`/movies/${id}`, process.env.NEXT_PUBLIC_BASE_URL),
+    metadataBase: new URL(`/movies/${params.id}`, process.env.NEXT_PUBLIC_BASE_URL),
     openGraph: {
       images: [
         ...previousImages,
@@ -34,9 +32,9 @@ export async function generateMetadata(
   }
 }
 
-const MoviePage = async (props: PageDetailsProps) => {
-  const { id } = props.params
 
+const MoviePage = async ({ params }: { params: { id: string } }) => {
+  const { id } = params
   const { movieCredits, movieDetails, similarMovies, recommendedMovies } =
     await populateMovieDetailsPage(id)
 
@@ -52,5 +50,6 @@ const MoviePage = async (props: PageDetailsProps) => {
     </header>
   )
 }
+
 
 export default MoviePage
