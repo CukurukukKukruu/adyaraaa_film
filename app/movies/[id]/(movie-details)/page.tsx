@@ -5,7 +5,6 @@ import {
   populateMovieDetailsPage,
 } from '@/services/movies'
 
-import { PageDetailsProps } from '@/types/page-details'
 import { getPosterImageURL } from '@/lib/utils'
 import { MoviesDetailsContent } from '@/components/media/details-content'
 import { MovieDetailsHero } from '@/components/media/details-hero'
@@ -35,9 +34,7 @@ export async function generateMetadata(
 const MoviePage = async ({
   params,
 }: {
-  params: {
-    id: string
-  }
+  params: { id: string }
 }) => {
   const { movieCredits, movieDetails, similarMovies, recommendedMovies } =
     await populateMovieDetailsPage(params.id)
