@@ -14,11 +14,7 @@ export async function generateMetadata(
   props: PageDetailsProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-<<<<<<< HEAD
   const { id } = props.params
-=======
-  const { id } = props.params // ✅ Tanpa await
->>>>>>> 1d178f3 (fix: remove await from props.params to fix metadata typing)
 
   const movieDetails = await getMovieDetailsById(id)
 
@@ -39,12 +35,8 @@ export async function generateMetadata(
 }
 
 const MoviePage = async (props: PageDetailsProps) => {
-<<<<<<< HEAD
   const { id } = props.params
 
-=======
-  const { id } = props.params // ✅ Tanpa await
->>>>>>> 1d178f3 (fix: remove await from props.params to fix metadata typing)
   const { movieCredits, movieDetails, similarMovies, recommendedMovies } =
     await populateMovieDetailsPage(id)
 
