@@ -32,11 +32,15 @@ export async function generateMetadata(
   }
 }
 
-
-const MoviePage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params
+const MoviePage = async ({
+  params,
+}: {
+  params: {
+    id: string
+  }
+}) => {
   const { movieCredits, movieDetails, similarMovies, recommendedMovies } =
-    await populateMovieDetailsPage(id)
+    await populateMovieDetailsPage(params.id)
 
   return (
     <header className="relative">
@@ -50,6 +54,5 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
     </header>
   )
 }
-
 
 export default MoviePage
